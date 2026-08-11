@@ -1,4 +1,4 @@
-# Retro
+# Retro Grand Prix
 
 - Open your terminal and clone this repository
 
