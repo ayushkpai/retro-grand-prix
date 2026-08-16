@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Retro Grand Prix</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<nav>
+  <a href="index.html" class="nav-logo">RETRO GP</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="howtoplay.html">How to Play</a>
+    <a href="drivers.html">Drivers</a>
+    <a href="game.html">Play</a>
+  </div>
+</nav>
+
+<div class="page">
+  <h1>ABOUT THE GAME</h1>
+  <p style="color:#888; margin-bottom:30px;">Everything you need to know about Retro Grand Prix.</p>
+
+  <div class="glass">
+    <h2>WHAT IS RETRO GRAND PRIX?</h2>
+    <p>Retro Grand Prix is a pseudo-3D Formula 1 racing game built entirely with HTML5 Canvas and JavaScript. Inspired by classic arcade racers like Pole Position and OutRun, it combines retro visuals with modern F1 mechanics.</p>
+    <p style="margin-top:10px;">The game runs in any browser with no installation required. Just open and race.</p>
+  </div>
+
+  <div class="glass">
+    <h2>THE CIRCUIT</h2>
+    <h3>Yas Marina Circuit, Abu Dhabi</h3>
+    <p>The game features a faithful recreation of the Yas Marina Circuit with all 16 turns mapped to match the real track layout:</p>
+    <ul style="margin-top:10px;">
+      <li>1km pit straight into the heavy braking T1</li>
+      <li>T6 hairpin - the slowest point on the circuit</li>
+      <li>T8-9 sweeping left under the iconic W Hotel</li>
+      <li>1.2km back straight - the DRS/boost zone</li>
+      <li>T10-11 fast S-curves (2021 redesigned section)</li>
+      <li>Marina section with yachts and waterfront towers</li>
+      <li>Full floodlighting for night racing</li>
+    </ul>
+  </div>
+
+  <div class="glass">
+    <h2>GAME MODES</h2>
+    <div class="grid-2" style="margin-top:10px;">
+      <div>
+        <h3>QUALIFYING</h3>
+        <p>One hot lap on an empty track. Your lap time is compared against AI-generated times for all 20 drivers. Your position determines your starting grid slot.</p>
+      </div>
+      <div>
+        <h3>RACE</h3>
+        <p>3 laps against 19 AI opponents. Manage tyres, fuel, and boost. Pit when needed. Fight for every position on the leaderboard.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass">
+    <h2>KEY FEATURES</h2>
+    <div class="grid-2" style="margin-top:10px;">
+      <div>
+        <h3>COCKPIT VIEW</h3>
+        <p>Race from inside the car with halo, steering wheel displaying speed, gear, and DRS status, plus side mirrors.</p>
+      </div>
+      <div>
+        <h3>TYRE STRATEGY</h3>
+        <p>Three compounds - Soft (fast, wears quick), Medium (balanced), Hard (slow, lasts long). Dead tyres = massive grip loss.</p>
+      </div>
+      <div>
+        <h3>BOOST SYSTEM</h3>
+        <p>Slipstream behind rivals to charge your boost meter. Deploy it anywhere for +30 km/h top speed. Inspired by The Crew Motorfest.</p>
+      </div>
+      <div>
+        <h3>FUEL MANAGEMENT</h3>
+        <p>Fuel depletes over the race. Run out and your car coasts to a stop. Pit stops refuel to full automatically.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass">
+    <h2>TECH STACK</h2>
+    <p>Built with vanilla HTML5, CSS, and JavaScript. No frameworks, no build tools, no dependencies.</p>
+    <ul style="margin-top:10px;">
+      <li>HTML5 Canvas for all rendering</li>
+      <li>Web Audio API for engine sounds and effects</li>
+      <li>Touch events for mobile support</li>
+      <li>Glassmorphism UI with backdrop-filter</li>
+      <li>Single-file game engine (~2000 lines)</li>
+    </ul>
+  </div>
+
+  <div style="text-align:center; margin-top:30px;">
+    <a href="game.html" class="btn">PLAY NOW</a>
+  </div>
+</div>
+
+<footer>RETRO GRAND PRIX -- A browser-based F1 racing game</footer>
+
+<script>
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 80; i++) {
+  const s = document.createElement('span');
+  s.style.left = Math.random() * 100 + '%';
+  s.style.top = Math.random() * 100 + '%';
+  s.style.width = (Math.random() * 2 + 1) + 'px';
+  s.style.height = s.style.width;
+  s.style.animationDelay = Math.random() * 3 + 's';
+  starsEl.appendChild(s);
+}
+</script>
+</body>
+</html>
