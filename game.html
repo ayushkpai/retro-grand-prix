@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Retro Grand Prix</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0a2e'/><path d='M6,20 L8,14 L12,12 L20,12 L24,14 L26,20 Z' fill='%23e00'/><ellipse cx='16' cy='13' rx='3' ry='2' fill='%23111'/><circle cx='16' cy='12.5' r='1.5' fill='%23ff0'/><rect x='4' y='18' width='3' height='5' rx='1' fill='%23111'/><rect x='25' y='18' width='3' height='5' rx='1' fill='%23111'/><rect x='5' y='10' width='22' height='2' rx='1' fill='%23e00'/></svg>">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -283,8 +284,86 @@
     display: none;
   }
 
+  .stat-num { font-size: 28px; color: #ff0; font-weight: bold; }
+  .stat-label { font-size: 10px; color: #888; letter-spacing: 2px; }
+  .feature-cards { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+  .feature-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 15px; text-align: center; width: 130px; font-size: 18px; }
+  .feature-desc { font-size: 9px; color: #666; margin-top: 4px; }
+  .controls-hint { font-size: 11px; color: #555; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 5px; }
+
   @media (pointer: coarse) {
     #touch-controls { display: flex; }
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    #overlay {
+      padding: 15px 15px;
+      border-radius: 12px;
+      font-size: 14px;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    #overlay h1 { font-size: 24px; }
+    #overlay .sub { font-size: 12px; margin-bottom: 10px; }
+    #overlay .start-btn { font-size: 16px; padding: 10px 25px; }
+    #overlay svg { width: 220px; height: auto; }
+    .team-grid {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      max-height: 45vh;
+    }
+    .team-card { padding: 8px; }
+    .team-name { font-size: 13px; }
+    .team-stats { font-size: 10px; }
+    .team-stats .bar-bg { width: 60px; }
+    .quali-grid {
+      font-size: 11px;
+      grid-template-columns: 30px 10px 1fr 65px;
+      max-height: 40vh;
+    }
+    #leaderboard {
+      font-size: 9px;
+      min-width: 130px;
+      padding: 5px 8px 5px 10px;
+    }
+    #minimap {
+      width: 100px; height: 100px;
+    }
+    #tireHud, #fuelHud { font-size: 10px; padding: 4px 8px; }
+    #tireHud { top: 120px; }
+    #fuelHud { top: 145px; }
+    #pitHint { font-size: 12px; padding: 6px 14px; bottom: 120px; }
+    .touch-btn { width: 60px; height: 60px; font-size: 24px; }
+    .touch-btn[style*="font-size:14px"] { font-size: 11px !important; }
+    #touch-controls { bottom: 15px; padding: 0 10px; }
+    .pit-section label { font-size: 12px; }
+    .tire-btn, .fuel-btn { padding: 8px 12px; font-size: 12px; min-width: 65px; }
+    #pitMenu h2 { font-size: 22px; }
+    #qualiHud { font-size: 13px; padding: 6px 14px; }
+    #qualiHud .quali-time { font-size: 20px; }
+    .stat-num { font-size: 20px; }
+    .stat-label { font-size: 8px; }
+    .feature-cards { gap: 8px; }
+    .feature-card { width: 90px; padding: 8px 8px; font-size: 13px; }
+    .feature-desc { font-size: 8px; }
+    .controls-hint { font-size: 9px; gap: 12px; }
+  }
+
+  @media (max-width: 480px) {
+    #overlay { padding: 10px 10px; }
+    #overlay svg { width: 180px; }
+    #overlay h1 { font-size: 20px; }
+    .team-grid { max-height: 40vh; }
+    .team-card { padding: 6px; }
+    .team-name { font-size: 12px; }
+    #leaderboard { font-size: 8px; min-width: 110px; top: 35px; }
+    #minimap { width: 80px; height: 80px; }
+    #tireHud { top: 100px; }
+    #fuelHud { top: 120px; }
+    .touch-btn { width: 50px; height: 50px; font-size: 20px; }
+    #pitHint { font-size: 10px; bottom: 90px; }
   }
 </style>
 </head>
@@ -372,48 +451,46 @@
     <div id="menuScreen">
       <div style="color:#aaa; font-size:14px; margin-bottom:18px;">YAS MARINA CIRCUIT, ABU DHABI</div>
 
-      <div style="display:flex; justify-content:center; gap:25px; margin-bottom:20px; flex-wrap:wrap;">
+      <div style="display:flex; justify-content:center; gap:15px; margin-bottom:15px; flex-wrap:wrap;">
         <div style="text-align:center;">
-          <div style="font-size:28px; color:#ff0; font-weight:bold;">20</div>
-          <div style="font-size:10px; color:#888; letter-spacing:2px;">DRIVERS</div>
+          <div class="stat-num">20</div>
+          <div class="stat-label">DRIVERS</div>
         </div>
         <div style="text-align:center;">
-          <div style="font-size:28px; color:#ff0; font-weight:bold;">10</div>
-          <div style="font-size:10px; color:#888; letter-spacing:2px;">TEAMS</div>
+          <div class="stat-num">10</div>
+          <div class="stat-label">TEAMS</div>
         </div>
         <div style="text-align:center;">
-          <div style="font-size:28px; color:#ff0; font-weight:bold;">16</div>
-          <div style="font-size:10px; color:#888; letter-spacing:2px;">TURNS</div>
+          <div class="stat-num">16</div>
+          <div class="stat-label">TURNS</div>
         </div>
         <div style="text-align:center;">
-          <div style="font-size:28px; color:#ff0; font-weight:bold;">3</div>
-          <div style="font-size:10px; color:#888; letter-spacing:2px;">LAPS</div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">LAPS</div>
         </div>
       </div>
 
-      <div style="display:flex; justify-content:center; gap:15px; margin-bottom:20px; flex-wrap:wrap;">
-        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:10px 15px; text-align:center; width:130px;">
-          <div style="font-size:18px; color:#0f0;">QUALIFY</div>
-          <div style="font-size:9px; color:#666; margin-top:4px;">Hot lap for grid position</div>
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div style="color:#0f0;">QUALIFY</div>
+          <div class="feature-desc">Hot lap for grid position</div>
         </div>
-        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:10px 15px; text-align:center; width:130px;">
-          <div style="font-size:18px; color:#f80;">PIT STOP</div>
-          <div style="font-size:9px; color:#666; margin-top:4px;">Tyre strategy mid-race</div>
+        <div class="feature-card">
+          <div style="color:#f80;">PIT STOP</div>
+          <div class="feature-desc">Tyre strategy mid-race</div>
         </div>
-        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:10px 15px; text-align:center; width:130px;">
-          <div style="font-size:18px; color:#0af;">BOOST</div>
-          <div style="font-size:9px; color:#666; margin-top:4px;">Slipstream to charge</div>
+        <div class="feature-card">
+          <div style="color:#0af;">BOOST</div>
+          <div class="feature-desc">Slipstream to charge</div>
         </div>
       </div>
 
-      <div style="margin-bottom:15px;">
-        <div style="font-size:11px; color:#555; display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
-          <span><span style="color:#888;">ARROWS</span> Drive</span>
-          <span><span style="color:#888;">SPACE</span> Boost</span>
-          <span><span style="color:#888;">P</span> Pit tyres</span>
-        </div>
-        <div style="font-size:10px; color:#444; margin-top:5px;">Mobile: on-screen GAS / BRK / DRS buttons</div>
+      <div class="controls-hint">
+        <span><span style="color:#888;">ARROWS</span> Drive</span>
+        <span><span style="color:#888;">SPACE</span> Boost</span>
+        <span><span style="color:#888;">P</span> Pit tyres</span>
       </div>
+      <div style="font-size:10px; color:#444; margin-top:5px; margin-bottom:10px;">Mobile: on-screen GAS / BRK / DRS buttons</div>
 
       <button class="start-btn" id="startBtn">SELECT YOUR DRIVER</button>
     </div>
